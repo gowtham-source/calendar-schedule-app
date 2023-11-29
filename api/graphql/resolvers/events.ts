@@ -1,7 +1,7 @@
 import { GraphQLError } from 'graphql'
 import { EventModel } from '../../models/event'
 import { UserModel } from '../../models/user'
-import { constants } from '../../config/constants'
+// import { constants } from '../../config/constants'
 import {
   EventInput,
   FilterInput,
@@ -111,7 +111,7 @@ export const Events = {
     }: { event: EventInput },
     { isAuthorized, userId }: IAuthParams,
   ) => {
-    const { URI } = constants
+    // const { URI } = constants
 
     if (!isAuthorized) {
       throw new GraphQLError('Unauthenticated')
@@ -148,7 +148,7 @@ export const Events = {
       })
 
       savedEvent = await event.save().then((e) => e.populate('createdBy'))
-      savedEvent.url = `${URI}/sharedEvent/${savedEvent._id}`
+      savedEvent.url = `https://calendar-schedule-app.vercel.app/sharedEvent/${savedEvent._id}`
       await savedEvent.save({ timestamps: false })
     }
 
